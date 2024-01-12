@@ -1,0 +1,1 @@
+run "./mcdonalds.sh"
