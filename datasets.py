@@ -88,8 +88,6 @@ class NiftiDataset(CacheDataset):
 
         check_dataset(to_check_filepaths, to_check_prefix)
 
-        logging.info(f"Initializing the dataset. Number of subjects {len(self.target_filepaths)}")
-
         self.files = [dict(zip(modality_names, files)) for files in list(zip(*to_check_filepaths))]
 
         super().__init__(data=self.files, transform=transforms,
@@ -122,8 +120,6 @@ class NiftinotargetDataset(CacheDataset):
         modality_names = input_names
  
         check_dataset(to_check_filepaths, to_check_prefix)
-
-        logging.info(f"Initializing the dataset. Number of subjects {len(list(zip(*to_check_filepaths)))}")
 
         self.files = [dict(zip(modality_names, files)) for files in list(zip(*to_check_filepaths))]
 
