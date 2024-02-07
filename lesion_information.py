@@ -105,7 +105,7 @@ for image_name, mask_name in zip(image_name_list, mask_name_list):
     seg_cortex = ndimage.binary_dilation(seg_cortex_undil, structure=struct1, iterations=1)
     seg_infratentorial = seg_infratentorial_undil.astype(int)
     seg_ventricles = ndimage.binary_dilation(seg_ventricles_undil, structure=struct1, iterations=2).astype(int)
-    seg_wm = ndimage.binary_dilation(seg_wm_undil, structure=struct1, iterations=1).astype(int)
+    seg_wm = ndimage.binary_dilation(seg_wm_undil, structure=struct1, iterations=2).astype(int)
     
     #if save_labelmap:
     #    mask_file_name = os.path.basename(mask_name)
