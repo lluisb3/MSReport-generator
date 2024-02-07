@@ -60,8 +60,8 @@ for image_name, mask_name in zip(image_name_list, mask_name_list):
     check_image_existence(image_name)
     check_image_existence(mask_name)
     
-    
-    ID = (image_name.split("SAMSEG/", 1)[1]).split("/flair", 1)[0].replace('/', '-')
+    print(image_name)
+    ID = (image_name.split("data/", 1)[1]).split("/flair", 1)[0].replace('/', '-')
     print("Generating report for subject " + ID + "...")
     
     img_proxy = nib.load(image_name)
@@ -77,7 +77,7 @@ for image_name, mask_name in zip(image_name_list, mask_name_list):
                                'Lesion Voxels', 'Lesion Volume', 'Note'])
 
     #label_map, unique_label, count_label = form_cluster(mask_data)
-    label_map = get_lesion_types_masks(mask_data, mask_data, 'non_zero', n_jobs = 2)['TPL']
+    label_map = get_lesion_types_masks(mask_data, mask_data, 'non_zero', n_jobs = 1)['TPL']
     #print("unpruned are: ", np.max(label_map))
     label = 1
     while label <= np.max(label_map):
@@ -98,12 +98,14 @@ for image_name, mask_name in zip(image_name_list, mask_name_list):
     seg_cortex_undil = nib.load(path_samseg + '/Cortex.nii.gz').get_fdata()
     seg_infratentorial_undil = nib.load(path_samseg + '/Infratentorial.nii.gz').get_fdata()
     seg_ventricles_undil = nib.load(path_samseg + '/Ventricles.nii.gz').get_fdata()
+    seg_wm_undil = nib.load(path_samseg + '/WM_Mask.nii.gz').get_fdata()
     
     struct1 = ndimage.generate_binary_structure(3, 1) # define shape of dilation
     
     seg_cortex = ndimage.binary_dilation(seg_cortex_undil, structure=struct1, iterations=1)
     seg_infratentorial = seg_infratentorial_undil.astype(int)
     seg_ventricles = ndimage.binary_dilation(seg_ventricles_undil, structure=struct1, iterations=2).astype(int)
+    seg_wm = ndimage.binary_dilation(seg_wm_undil, structure=struct1, iterations=1).astype(int)
     
     #if save_labelmap:
     #    mask_file_name = os.path.basename(mask_name)
@@ -118,15 +120,18 @@ for image_name, mask_name in zip(image_name_list, mask_name_list):
         
         cortex = np.sum(lesion_seg & seg_cortex)
         infratentorial = bool(np.sum(lesion_seg & seg_infratentorial))
-        periventricular = bool(np.sum(lesion_seg & seg_ventricles))      
+        periventricular = bool(np.sum(lesion_seg & seg_ventricles))
+        wm = bool(np.sum(lesion_seg & seg_wm))      
         if infratentorial:
             lesion_type = 'infratentorial'
         elif periventricular:
             lesion_type = 'periventricular'
         elif cortex > 5:
             lesion_type = 'juxtacortical'    
+        elif wm:
+            lesion_type = 'WM'
         else:
-            lesion_type = 'WM'             
+            lesion_type = 'False positive'                 
         
         num_voxel = len(masked_cluster)
         cluster_in_mask_data = np.unique(mask_data[the_cluster])
