@@ -36,7 +36,7 @@ for f in $FILES; do
 	fslmaths $f/SAMSEG/seg.nii.gz -thr 46.5 -uthr 47.5 $f/SAMSEG/RightCerebellumCortex.nii.gz
 	
 	#obtain WM mask
-	fslmaths $f/SAMSEG/LeftWM.nii.gz -add $f/SAMSEG/RightWM.nii.gz -add $f/SAMSEG/pred.nii.gz $f/SAMSEG/WM_Mask.nii.gz
+	fslmaths $f/SAMSEG/LeftWM.nii.gz -add $f/SAMSEG/RightWM.nii.gz $f/SAMSEG/WM_Mask.nii.gz
 	fslmaths $f/SAMSEG/WM_Mask.nii.gz -bin $f/SAMSEG/WM_Mask.nii.gz 	
 	
 	#obtain cortex
