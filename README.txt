@@ -1,1 +1,1 @@
-run "./mcdonalds.sh"
+run sudo "./report.sh" {path-to-data}
