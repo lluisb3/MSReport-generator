@@ -21,11 +21,11 @@ Usage is the following:
 sudo ./report.sh {PATH_TO_DATA}
 ```
 
-| ![](samseg.png) |
+| ![](samseg.png) width=300|
 |:--:|
 | *Space* |
 
-| ![](T1w_ventr_cort.png) |
+| ![](T1w_ventr_cort.png) width=300 |
 |:--:|
 | *Space* |
 
