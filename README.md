@@ -21,7 +21,7 @@ Usage is the following:
 sudo ./report.sh {PATH_TO_DATA}
 ```
 
-<div style="display: flex; justify-content: space-between;">
+</div>
 
   <figure style="text-right: center;">
     <img src="samseg.png" alt="SAMSEG parcellation" width="300">
