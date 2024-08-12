@@ -23,7 +23,7 @@ sudo ./report.sh {PATH_TO_DATA}
 
 <div style="display: flex; justify-content: space-between;">
 
-  <figure style="text-align: center; margin-right: 20px;">
+  <figure style="margin-right: 20px; text-align: center;">
     <img src="samseg.png" alt="SAMSEG parcellation" width="300">
     <figcaption>SAMSEG parcellation</figcaption>
   </figure>
@@ -34,6 +34,7 @@ sudo ./report.sh {PATH_TO_DATA}
   </figure>
 
 </div>
+
 
 ## Code Contributors
 
