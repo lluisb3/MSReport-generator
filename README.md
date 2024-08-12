@@ -20,11 +20,16 @@ Usage is the following:
 ```sh
 sudo ./report.sh {PATH_TO_DATA}
 ```
-<p float="left">
-<img src="samseg.png" alt="SAMSEG parcellation" width="300" height="300">
-<img src="T1w_ventr_cort.png" alt="Segmentation of ventricles and cortex" width="300" height="300">
-<img src="T1w_samseg_full.png" alt="Segmentation of ventricles, cortex, and cerebellum" width="300" height="300">
-</p>
+
+<figure style="display: inline-block; margin-right: 10px;">
+  <img src="samseg.png" alt="Image 1" width="300">
+  <figcaption>SAMSEG parcellation</figcaption>
+</figure>
+
+<figure style="display: inline-block;">
+  <img src="T1w_ventr_cort.png" alt="Image 2" width="300">
+  <figcaption>Segmentation of ventricles and cortex</figcaption>
+</figure>
 
 ## Code Contributors
 
