@@ -25,16 +25,15 @@ sudo ./report.sh {PATH_TO_DATA}
 
   <figure style="text-right: center;">
     <img src="samseg.png" alt="SAMSEG parcellation" width="300">
-    |:--:|
-    <figcaption>SAMSEG parcellation</figcaption>
   </figure>
+  |:--:| 
+  | *Space* |
 
   <figure style="text-align: center;">
     <img src="T1w_ventr_cort.png" alt="Segmentation of ventricles and cortex" width="300">
-    |:--:|
-    <figcaption>Segmentation of ventricles and cortex</figcaption>
   </figure>
-
+  |:--:| 
+  | *Space* |
 </div>
 
 
