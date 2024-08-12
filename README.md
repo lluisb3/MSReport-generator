@@ -20,6 +20,9 @@ Usage is the following:
 ```sh
 sudo ./report.sh {PATH_TO_DATA}
 ```
+The brain parcellation is aimed to seek lesion location according to McDonald criteria for MS diagnosis.
+The segmentations of ventricles, cortex, cerebellum and brainstem were exploited to this end.
+The segmentation of white matter hyperintensities in SAMSEG was replaced by our MS lesion segmentation output [1]. 
 
 | <img src="samseg.png" width="300"> | <img src="T1w_ventr_cort.png" width="300"> |
 |:--:|:--:|
@@ -36,4 +39,8 @@ This work is part of the project MSxplain.
 - Github: [@federicospagnolo](https://github.com/federicospagnolo)
 
 ## References
-1. Fast and sequence-adaptive whole-brain segmentation using parametric Bayesian modeling. O. Puonti, J.E. Iglesias, K. Van Leemput. NeuroImage, 143, 235-249, 2016.
+1. Spagnolo, F., Molchanova, N., Schaer, R., Bach Cuadra, M., Ocampo Pineda,
+M., Melie-Garcia, L., Granziera, C., Andrearczyk, V., Depeursinge, A.: Instance-
+level quantitative saliency in multiple sclerosis lesion segmentation. arXiv (2024).
+https://doi.org/10.48550/ARXIV.2406.09335
+2. Fast and sequence-adaptive whole-brain segmentation using parametric Bayesian modeling. O. Puonti, J.E. Iglesias, K. Van Leemput. NeuroImage, 143, 235-249, 2016.
