@@ -27,7 +27,7 @@ Below, an example of SAMSEG output, and the segmentation used to locate MS lesio
 
 | <img src="samseg.png" width="300"> | <img src="T1w_ventr_cort.png" width="300"> |
 |:--:|:--:|
-| *SAMSEG parcellation* | *Segmentation of ventricles and cortex* |
+| *SAMSEG parcellation* | *Segmentation of McDonald criteria's relevant regions* |
 
 ## Code Contributors
 
