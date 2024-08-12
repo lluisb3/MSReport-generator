@@ -23,6 +23,7 @@ sudo ./report.sh {PATH_TO_DATA}
 The brain parcellation is aimed to seek lesion location according to McDonald criteria for MS diagnosis.
 The segmentations of ventricles, cortex, cerebellum and brainstem were exploited to this end.
 The segmentation of white matter hyperintensities in SAMSEG was replaced by our MS lesion segmentation output [1]. 
+Below, an example of SAMSEG output, and the segmentation used to locate MS lesions.
 
 | <img src="samseg.png" width="300"> | <img src="T1w_ventr_cort.png" width="300"> |
 |:--:|:--:|
