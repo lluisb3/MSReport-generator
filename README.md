@@ -21,13 +21,9 @@ Usage is the following:
 sudo ./report.sh {PATH_TO_DATA}
 ```
 
-| <img src="samseg.png" width="300"> |
-|:--:|
-| *SAMSEG parcellation* |
-
-| <img src="T1w_ventr_cort.png" width="300"> |
-|:--:|
-| *Segmentation of ventricles and cortex* |
+| <img src="samseg.png" width="300"> | <img src="T1w_ventr_cort.png" width="300"> |
+|:--:|:--:|
+| *SAMSEG parcellation* | *Segmentation of ventricles and cortex* |
 
 ## Code Contributors
 
