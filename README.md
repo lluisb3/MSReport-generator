@@ -21,21 +21,13 @@ Usage is the following:
 sudo ./report.sh {PATH_TO_DATA}
 ```
 
-</div>
+| ![](samseg.png) |
+|:--:|
+| *Space* |
 
-  <figure style="text-right: center;">
-    <img src="samseg.png" alt="SAMSEG parcellation" width="300">
-  </figure>
-  |:--:| 
-  | *Space* |
-
-  <figure style="text-align: center;">
-    <img src="T1w_ventr_cort.png" alt="Segmentation of ventricles and cortex" width="300">
-  </figure>
-  |:--:| 
-  | *Space* |
-</div>
-
+| ![](T1w_ventr_cort.png) |
+|:--:|
+| *Space* |
 
 ## Code Contributors
 
