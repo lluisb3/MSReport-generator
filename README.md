@@ -20,7 +20,7 @@ Usage is the following:
 ```sh
 sudo ./report.sh {PATH_TO_DATA}
 ```
-![Alt text](samseg.png?raw=true "Title")
+![Alt text](samseg.png)
 
 ## Code Contributors
 
