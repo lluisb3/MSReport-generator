@@ -38,7 +38,7 @@ This work is part of the project MSxplain.
 👤 **Federico Spagnolo**
 
 - Github: [@federicospagnolo](https://github.com/federicospagnolo)
-- | [Linkedin](https://www.linkedin.com/in/federico-spagnolo/) |
+- | [LinkedIn](https://www.linkedin.com/in/federico-spagnolo/) |
 
 ## References
 1. Spagnolo, F., Molchanova, N., Schaer, R., Bach Cuadra, M., Ocampo Pineda,
