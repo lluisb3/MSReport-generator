@@ -21,15 +21,19 @@ Usage is the following:
 sudo ./report.sh {PATH_TO_DATA}
 ```
 
-<figure style="display: inline-block; margin-right: 10px;">
-  <img src="samseg.png" alt="Image 1" width="300">
-  <figcaption>SAMSEG parcellation</figcaption>
-</figure>
+<div style="display: flex; justify-content: space-between;">
 
-<figure style="display: inline-block;">
-  <img src="T1w_ventr_cort.png" alt="Image 2" width="300">
-  <figcaption>Segmentation of ventricles and cortex</figcaption>
-</figure>
+  <figure style="text-align: center; margin-right: 20px;">
+    <img src="samseg.png" alt="SAMSEG parcellation" width="300">
+    <figcaption>SAMSEG parcellation</figcaption>
+  </figure>
+
+  <figure style="text-align: center;">
+    <img src="T1w_ventr_cort.png" alt="Segmentation of ventricles and cortex" width="300">
+    <figcaption>Segmentation of ventricles and cortex</figcaption>
+  </figure>
+
+</div>
 
 ## Code Contributors
 
