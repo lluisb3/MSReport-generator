@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script to obtain automatic report using SAMSEG
-# Usage: sudo ./report.sh /home/msxplain/MSReport_generator/data
+# Usage: sudo ./report.sh /home/msxplain/MSReport-generator/data
 FSLDIR=/home/msxplain/usr
 PATH=${FSLDIR}/bin:${PATH}
 . ${FSLDIR}/etc/fslconf/fsl.sh
