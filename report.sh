@@ -8,7 +8,7 @@ FREESURFER_HOME=/home/msxplain/freesurfer_7.1.1
 . $FREESURFER_HOME/SetUpFreeSurfer.sh
 CONDA_PATH=/home/msxplain/miniconda3
 . $CONDA_PATH/etc/profile.d/conda.sh
-conda activate clwmlseg
+conda activate msreport
 python /home/msxplain/Report_generation/predict.py --model_checkpoint /home/msxplain/Report_generation/model_epoch_31.pth --input_val_paths $1 $1 --input_prefixes flair_3d_sbr.nii.gz t1n_3d_sb.nii.gz --num_workers 0 --cache_rate 0.01 --threshold 0.3
 echo "Prediction file saved"
 
