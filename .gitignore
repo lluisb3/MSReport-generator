@@ -3,3 +3,4 @@ __pycache__/*
 outputs
 model_epoch_31.pth
 configs/
+.vscode/    
