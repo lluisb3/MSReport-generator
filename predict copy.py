@@ -36,10 +36,6 @@ import pandas as pd
 import gc
 import time
 import psutil
-import time
-start_time = time.time()
-
-torch.cuda.is_available = lambda : True
 
 def dp(path1: str, path2: str) -> str:
     return os.path.join(path1, path2)
@@ -93,15 +89,8 @@ logging.info(f"Using device: {device}")
 torch.multiprocessing.set_sharing_strategy('file_system')
 
 # Init your model
-if torch.cuda.is_available():
-    print("======= IN CUDA ======")
-    model = UNet(spatial_dims=3, in_channels=len(args.input_modalities), out_channels=args.n_classes,
-                        channels=(32, 64, 128, 256, 512), strides=(2, 2, 2, 2), norm='batch', num_res_units=0).cuda()
-else:
-    print("======= IN CPU ======")
-    model = UNet(spatial_dims=3, in_channels=len(args.input_modalities), out_channels=args.n_classes,
-                     channels=(32, 64, 128, 256, 512), strides=(2, 2, 2, 2), norm='batch', num_res_units=0)
-    
+model = UNet(spatial_dims=3, in_channels=len(args.input_modalities), out_channels=args.n_classes,
+                     channels=(32, 64, 128, 256, 512), strides=(2, 2, 2, 2), norm='batch', num_res_units=0).cuda()
 # Weights intialization
 for layer in model.model.modules():
         if type(layer) == torch.nn.Conv3d:
@@ -110,15 +99,8 @@ for layer in model.model.modules():
 # Load best model weights
 model_path = dp(script_folder, model_checkpoint)
 #print(model_path)
-if torch.cuda.is_available():
-    print("======= IN CUDA======")
-    model = torch.nn.DataParallel(model).cuda()
-    model.load_state_dict(torch.load(args.model_checkpoint, map_location='cuda'))
-else:
-    print("======= IN CPU ======")
-    model = torch.nn.DataParallel(model)
-    model.load_state_dict(torch.load(args.model_checkpoint, map_location='cpu'))
-
+model = torch.nn.DataParallel(model).cuda()
+model.load_state_dict(torch.load(args.model_checkpoint, map_location='cuda'))
 model.eval()
 activation = torch.nn.Softmax(dim=1)
 
@@ -151,14 +133,7 @@ for data in val_dataloader:
 
     filename = data['flair_meta_dict']['filename_or_obj'][0]
     logging.info(f"Evaluate gradients in batch {filename}")
-    
-    if torch.cuda.is_available():
-        print("======= IN CUDA ======")
-        inputs = data["inputs"].cuda() # 0 is flair, 1 is mprage
-    else:
-        print("======= IN CPU ======")
-        inputs = data["inputs"] # 0 is flair, 1 is mprage
-    
+    inputs = data["inputs"].cuda() # 0 is flair, 1 is mprage
     input_affine = nib.load(filename).affine
 
     inputs.requires_grad_()
@@ -169,21 +144,12 @@ for data in val_dataloader:
     output_mask = outputs[0,1].detach().cpu().numpy()
     output_mask[output_mask > threshold] = 1
     output_mask[output_mask < threshold] = 0
-    
-    # Save predicted output
+
+     # Save predicted output
     pred = nib.Nifti1Image(output_mask, input_affine)
-    outputpath = Path(args.input_val_paths[0])
-    
-    Path.mkdir(outputpath / output_dir, parents=True, exist_ok=True)
-    
-    nib.save(pred, outputpath / output_dir / "pred.nii.gz")
-    i+=1
+    outputpath = Path(filename.split("flair", 1)[0]).parent
  
+    Path.mkdir(outputpath / output_dir, parents=True, exist_ok=True)
 
-end_time = time.time()
-elapsed_time = end_time - start_time
-
-# Convert elapsed time to hours, minutes, and seconds
-hours, remainder = divmod(elapsed_time, 3600)
-minutes, seconds = divmod(remainder, 60)   
-print(f"======= Elapsed time: {int(hours)} hours, {int(minutes)} minutes, {seconds:.2f} seconds")
+    nib.save(pred, "{}/pred.nii.gz".format(Path(outputpath / output_dir)))
+    i+=1

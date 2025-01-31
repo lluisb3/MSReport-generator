@@ -1,32 +1,41 @@
 #!/bin/bash
+
+# Record the start time
+start_time=$(date +%s)
+
 # Script to obtain automatic report using SAMSEG
-# Usage: sudo ./report.sh /home/msxplain/MSReport-generator/data
-FSLDIR=/home/msxplain/usr
-PATH=${FSLDIR}/bin:${PATH}
-. ${FSLDIR}/etc/fslconf/fsl.sh
-FREESURFER_HOME=/home/msxplain/freesurfer_7.1.1
+# Usage: sudo ./report.sh /home/lluis/MSReport_generator/data
+FSLDIR=/home/lluis/msxplain/fsl # Path to the installation FSL
+PATH=${FSLDIR}/bin:${PATH} # Created when installed
+. ${FSLDIR}/etc/fslconf/fsl.sh # Created when installed
+FREESURFER_HOME=/home/lluis/msxplain/freesurfer # Path to the installation Freesurfer
 . $FREESURFER_HOME/SetUpFreeSurfer.sh
-CONDA_PATH=/home/msxplain/miniconda3
+CONDA_PATH=/home/lluis/miniconda3
 . $CONDA_PATH/etc/profile.d/conda.sh
 conda activate msreport
-python /home/msxplain/Report_generation/predict.py --model_checkpoint /home/msxplain/Report_generation/model_epoch_31.pth --input_val_paths $1 $1 --input_prefixes flair_3d_sbr.nii.gz t1n_3d_sb.nii.gz --num_workers 0 --cache_rate 0.01 --threshold 0.3
+
+# File inputs
+FLAIR=flair.nii.gz
+MPRAGE=mprage.nii.gz
+
+python /home/lluis/msxplain/MSReport-generator/predict.py --model_checkpoint /home/lluis/msxplain/MSReport-generator/model_epoch_31.pth --input_val_paths $1 $1 --input_prefixes $FLAIR $MPRAGE --num_workers 0 --cache_rate 0.01 --threshold 0.3
 echo "Prediction file saved"
 
-FILES="$1/*/*/t1n_3d_s.nii.gz"
+FILES="$1/$MPRAGE"
 
 for f_t1 in $FILES; do
        	f=$(dirname $f_t1)
        	echo "Processing directory: $f"
-        #relative_path=$(echo "$f" | awk -F '/home/msxplain/' '{print $2}')
+        #relative_path=$(echo "$f" | awk -F '/home/lluis/' '{print $2}')
 	echo $f_t1
-	run_samseg --input $f/t1n_3d_s.nii.gz --output $f/SAMSEG --threads 2 > /dev/null
+	run_samseg --input $f/$MPRAGE --output $f/SAMSEG --threads 2 > /dev/null
         echo "echo1"
         mri_convert $f/SAMSEG/seg.mgz $f/SAMSEG/seg.nii.gz
 	echo "echo2"
-	#docker run -v /home/msxplain:/root a63c687a06d9 run_samseg --input $relative_path/t1n_3d_s.nii.gz --output $relative_path/SAMSEG --threads 2
+	#docker run -v /home/lluis:/root a63c687a06d9 run_samseg --input $relative_path/t1n_3d_s.nii.gz --output $relative_path/SAMSEG --threads 2
 	#run_samseg --input $f/t1n_3d_s.nii.gz --output $f/SAMSEG --threads 2
 	#run_samseg --input $f/t1n_3d_s.nii.gz --output $f/SAMSEG --threads 2 > /dev/null
-	#docker run -v /home/msxplain:/root a63c687a06d9 mri_convert $relative_path/SAMSEG/seg.mgz $relative_path/SAMSEG/seg.nii.gz
+	#docker run -v /home/lluis:/root a63c687a06d9 mri_convert $relative_path/SAMSEG/seg.mgz $relative_path/SAMSEG/seg.nii.gz
 	#mri_convert $f/SAMSEG/seg.mgz $f/SAMSEG/seg.nii.gz
 	#obtain mask of each structure
 	fslmaths $f/SAMSEG/seg.nii.gz -thr 1.5 -uthr 2.5 $f/SAMSEG/LeftWM.nii.gz
@@ -79,5 +88,21 @@ for f_t1 in $FILES; do
 	rm $f/SAMSEG/common.nii.gz
 	rm $f/SAMSEG/common2.nii.gz
 	
-	python /home/msxplain/Report_generation/lesion_information.py report $f/flair_3d_sbr.nii.gz $f/SAMSEG/pred.nii.gz $f/SAMSEG
+	python /home/lluis/msxplain/MSReport-generator/lesion_information.py report $f/$FLAIR $f/SAMSEG/pred.nii.gz $f/SAMSEG
 done
+
+chown -R lluis:lluis $1
+
+# Record the end time
+end_time=$(date +%s)
+
+# Calculate elapsed time
+elapsed_time=$((end_time - start_time))
+
+# Convert elapsed time to hours, minutes, and seconds
+hours=$((elapsed_time / 3600))
+minutes=$(( (elapsed_time % 3600) / 60 ))
+seconds=$((elapsed_time % 60))
+
+# Display the result
+printf "====== Elapsed time: %02d hours, %02d minutes, %02d seconds\n" $hours $minutes $seconds

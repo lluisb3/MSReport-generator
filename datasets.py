@@ -1,3 +1,4 @@
+# %%
 from monai.data import CacheDataset
 from monai.transforms import (
     Lambdad, Compose, LoadImaged)
@@ -32,10 +33,10 @@ def check_dataset(filepaths_list, prefixes):
 
 def get_filepaths(paths, prefixes):
     if isinstance(paths, list):
-        return [sorted(glob(os.path.realpath(os.path.join(pa, f"*/*/{pre}")), recursive=True), key=lambda i: int(re.sub('\D', '', i)))
+        return [sorted(glob(os.path.realpath(os.path.join(pa, f"{pre}")), recursive=True), key=lambda i: int(re.sub('\D', '', i)))
                 for pa, pre in zip(paths, prefixes)]      
     elif isinstance(paths, str):
-        return sorted(glob(os.path.realpath(os.path.join(paths, f"*/*/{prefixes}")), recursive=True),
+        return sorted(glob(os.path.realpath(os.path.join(paths, f"{prefixes}")), recursive=True),
                       key=lambda i: int(re.sub('\D', '', i)))
     else:
         return None

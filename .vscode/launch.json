@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["--data", "data/sub-PAT-0237_registered", "--model_checkpoint", "/home/lluis/msxplain/MSReport-generator/model_epoch_31.pth", "--input_val_paths", "data/sub-PAT-0237_registered/", "data/sub-PAT-0237_registered/", "--input_prefixes", "801_Sag_3D_FLAIR_Sag_3D_FLAIR_20181111164559_801_sbr.nii.gz", "1101_Sag_3D_T1_Gd_TFE_Sag_3D_T1_Gd_TFE_20181111164559_1101.nii.gz", "--num_workers", "0", "--cache_rate", "0.01", "--threshold", "0.3"]
+        }
+    ]
+}
